@@ -1,0 +1,11 @@
+.page{
+    display: flex;
+    flex-direction: row;
+
+    gap: 10px;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--surface-secondary);
+}

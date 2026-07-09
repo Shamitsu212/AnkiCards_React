@@ -1,0 +1,38 @@
+.article{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+
+    border-radius: 14px;
+    padding: 5px;
+
+    width: 200px;
+
+    position: relative;
+}
+
+.article:hover{
+    background-color: var(--surface-secondary);
+}
+.article__p{
+    font-size: 1rem;
+}
+.article__button {
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.article__button svg {
+    position: absolute;
+    right: 10px;
+    top: 3px;
+
+    transition: transform 0.3s ease;
+}
+
+.article__button:hover svg {
+    transform: rotate(90deg);
+}
