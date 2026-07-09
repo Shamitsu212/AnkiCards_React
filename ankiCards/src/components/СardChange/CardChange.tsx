@@ -1,11 +1,14 @@
 import styles from "./CardChange.module.css";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Input from "../Input/Input";
 
 import { useAppSelector } from "../../store/hooks";
 import useEditCard from "../../hooks/editCard/useEditCard";
+
+import { fileToBase64 } from "../../utils/fileToBase64";
+
 
 interface Props {
     id: number;
@@ -24,6 +27,8 @@ function CardChange({id}: Props) {
 
     const [translate, setTranslate] = useState(card.translate);
     const [original, setOriginal] = useState(card.original);
+    const [image, setImage] = useState(card.image ?? "");
+
 
     useEffect(() => {
         setTranslate(card.translate);
@@ -33,7 +38,24 @@ function CardChange({id}: Props) {
     const updateCard = useEditCard()
 
     function editData() {
-        updateCard(currentCard, original, translate);
+        updateCard(currentCard, original, translate, image);
+    }
+
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    function openFileDialog() {
+        inputRef.current?.click();
+    }
+
+
+    async function handleImage(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+
+        if (!file) return;
+
+        const base64 = await fileToBase64(file);
+
+        setImage(base64);
     }
 
     return (
@@ -44,10 +66,22 @@ function CardChange({id}: Props) {
                 
                 <div className={styles.front}>
 
-                    {card.image && (
-                        <img className={styles.image} src={card.image}/>
-                    )}
+                    <div className={styles.Imgwrapper} onClick={openFileDialog}>
 
+                        <input
+                            ref={inputRef}
+                            type="file"
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            onChange={handleImage}
+                        />
+
+                        {card.image && (
+                            <img className={styles.image} src={image}/>
+                        )}
+
+                    </div>
+                    
 
                     <Input value={translate} setValue={setTranslate}/>
 
