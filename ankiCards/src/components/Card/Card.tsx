@@ -8,7 +8,7 @@ import Input from "../Input/Input";
 
 interface Props {
     card: Card;
-    onNext: () => void;
+    onNext: () => boolean;
 }
 
 function CardComponent({ card, onNext }: Props) {
@@ -34,7 +34,13 @@ function CardComponent({ card, onNext }: Props) {
     }
 
     function handleNext() {
-        onNext();
+        const changed = onNext();
+        
+        if (!changed) {
+            setAnswer("");
+            setFlipped(false);
+            setCorrect(false);
+        }
     }
 
     return (

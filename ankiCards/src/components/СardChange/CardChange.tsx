@@ -19,32 +19,39 @@ function CardChange({id}: Props) {
 
     const card = useAppSelector((state) => state.cards.cards.find((c) => c.id == id))
 
-    if(!card){
-        return <p>Карта не выбрана</p>
-    }
-
-    const currentCard = card;
-
-    const [translate, setTranslate] = useState(card.translate);
-    const [original, setOriginal] = useState(card.original);
-    const [image, setImage] = useState(card.image ?? "");
+    const [translate, setTranslate] = useState("");
+    const [original, setOriginal] = useState("");
+    const [image, setImage] = useState("");
+    const [info, setInfo] = useState("")
 
 
     useEffect(() => {
+        if (!card) return;
+        
         setTranslate(card.translate);
         setOriginal(card.original);
+        setImage(card.image ?? "");
+        setInfo("");
     }, [card]);
 
     const updateCard = useEditCard()
-
-    function editData() {
-        updateCard(currentCard, original, translate, image);
-    }
 
     const inputRef = useRef<HTMLInputElement>(null);
 
     function openFileDialog() {
         inputRef.current?.click();
+    }
+
+    if(!card){
+        return <p>Карта не выбрана</p>
+    }
+
+    function editData() {
+        if (!card) return;
+
+        updateCard(card, original, translate, image);
+
+        setInfo("Изменения приняты")
     }
 
 
@@ -76,7 +83,7 @@ function CardChange({id}: Props) {
                             onChange={handleImage}
                         />
 
-                        {card.image && (
+                        {image && (
                             <img className={styles.image} src={image}/>
                         )}
 
@@ -91,6 +98,11 @@ function CardChange({id}: Props) {
                         Изменить
                     </button>
 
+                    {info &&
+                        <p style={{color: "green"}}>
+                            {info}
+                        </p>
+                    }
                 </div>
 
             </div>

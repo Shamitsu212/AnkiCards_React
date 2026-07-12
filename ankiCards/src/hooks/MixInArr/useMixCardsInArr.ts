@@ -18,16 +18,26 @@ function useMixCardsInArr() {
         (state) => state.app.mixedCards
     );
 
-    function nextCard() {
+    function nextCard(): boolean {
 
-        if (selectedTrainIndex < mixedCards.length - 1) {
-            dispatch(setSelectedTrainIndex(selectedTrainIndex + 1))
-            return;
+        if (mixedCards.length <= 1) {
+            return false;
         }
 
-        dispatch(setMixedCards(shuffle(cards.map((card) => card.id))))
+        if (selectedTrainIndex < mixedCards.length - 1) {
+            dispatch(setSelectedTrainIndex(selectedTrainIndex + 1));
+            return true;
+        }
+
+        dispatch(
+            setMixedCards(
+                shuffle(cards.map(card => card.id))
+            )
+        );
 
         dispatch(setSelectedTrainIndex(0));
+
+        return true;
     }
 
     return nextCard;

@@ -3,7 +3,7 @@ import styles from './Aside.module.css'
 import Button from '../Button/Button'
 import CardInfo from '../CardInfo/CardInfo'
 
-import { BrainIcon, DownloadIcon, ToolCaseIcon, UploadIcon } from 'lucide-react'
+import { PlayIcon, DownloadIcon, ToolCaseIcon, UploadIcon } from 'lucide-react'
 
 import useImportCards from '../../hooks/ImportFromApp/useImportCards'
 import { exportCards } from '../../utils/exportCards'
@@ -43,7 +43,7 @@ function Aside() {
             <div className={styles.container__row}>
 
                 <Button color='#FFB300' icon={<ToolCaseIcon/>} onClick={setCreate}/>
-                <Button color='#7B61FF' icon={<BrainIcon/>} onClick={setTrain}/>
+                <Button color='#7B61FF' icon={<PlayIcon/>} onClick={setTrain}/>
 
             </div>
 

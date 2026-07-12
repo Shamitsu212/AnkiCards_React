@@ -9,6 +9,7 @@ interface CardState {
 const initialState:CardState = {
     cards: [
         {id: 0, translate: "Английский", original: "English", image: ""},
+        {id: 1, translate: "Учиться", original: "Learn", image: ""},
     ]
 }
 
